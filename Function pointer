@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+float add(float a, float b) { return a + b; }
+float sub(float a, float b) { return a - b; }
+float mul(float a, float b) { return a * b; }
+float div(float a, float b) { return b ? a / b : 0; }
+
+int main() {
+    float a, b;
+    char op;
+    float (*fp[128])(float, float) = { ['+'] = add, ['-'] = sub, ['*'] = mul, ['/'] = div };
+    
+    printf("Enter expression (e.g. 4 + 5): ");
+    scanf("%f %c %f", &a, &op, &b);
+
+    if (fp[op])
+        printf("Result: %.2f\n", fp[op](a, b));
+    else
+        printf("Invalid operator.\n");
+
+    return 0;
+}
